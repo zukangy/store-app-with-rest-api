@@ -8,7 +8,12 @@ class PlainItemSchema(Schema):
 
 
 class PlainStoreSchema(Schema):
-    id = fields.Str(dump_only=True)
+    id = fields.Int(dump_only=True)
+    name = fields.Str(required=True)
+
+
+class PlainTagSchema(Schema):
+    id = fields.Int(dump_only=True)
     name = fields.Str(required=True)
 
 
@@ -24,3 +29,8 @@ class UpdateItemSchema(Schema):
 
 class StoreSchema(PlainStoreSchema):
     items = fields.List(fields.Nested(PlainItemSchema()), dump_only=True)
+
+
+class TagSchema(PlainTagSchema):
+    items = fields.List(fields.Nested(PlainItemSchema()), dump_only=True)
+    stores = fields.List(fields.Nested(PlainStoreSchema()), dump_only=True)
